@@ -13,7 +13,7 @@ void List_##T##_Append(List_##T *list, T item) {\
     if (list->size + 1 < list->capacity) {\
         list->items[list->size] = item;\
     } else {\
-        T newCapacity = list->capacity * LIST_RESIZE_MULTIPLIER;\
+        size_t newCapacity = list->capacity * LIST_RESIZE_MULTIPLIER;\
         T *newItems = malloc(newCapacity * sizeof(T));\
         memcpy(newItems, list->items, list->capacity * sizeof(T));\
         free(list->items);\
@@ -31,3 +31,36 @@ void initList_##T##_WithCapacity(List_##T *list, size_t capacity) {\
 }\
 \
 void initList_##T(List_##T *list) { initList_##T##_WithCapacity(list, LIST_BASE_SIZE); }
+
+
+
+#define MAKE_MUT_REF_LIST_DEF(T) \
+typedef struct {\
+    T **items;\
+    size_t size;\
+    size_t capacity;\
+} List_p##T;\
+\
+void List_p##T##_Append(List_p##T *list, T *item) {\
+    assert(list->capacity > 0 && "Shouldn't try appending to uninitialized list");\
+    if (list->size + 1 < list->capacity) {\
+        list->items[list->size] = item;\
+    } else {\
+        size_t newCapacity = list->capacity * LIST_RESIZE_MULTIPLIER;\
+        T **newItems = malloc(newCapacity * sizeof(T));\
+        memcpy(newItems, list->items, list->capacity * sizeof(T));\
+        free(list->items);\
+        list->items = newItems;\
+        list->capacity = newCapacity;\
+        list->items[list->size] = item;\
+    }\
+    list->size++;\
+}\
+\
+void initList_p##T##_WithCapacity(List_p##T *list, size_t capacity) {\
+    list->items = malloc(capacity * sizeof(T));\
+    list->size = 0;\
+    list->capacity = capacity;\
+}\
+\
+void initList_p##T(List_p##T *list) { initList_p##T##_WithCapacity(list, LIST_BASE_SIZE); }
