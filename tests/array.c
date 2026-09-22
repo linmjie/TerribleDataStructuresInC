@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "array.h"
+#include "../list/array/array.h"
 
 MAKE_LIST_DEF(int)
 MAKE_LIST_DEF(double);

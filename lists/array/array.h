@@ -9,7 +9,7 @@ typedef struct {\
 } List_##T;\
 \
 void List_##T##_Append(List_##T *list, T item) {\
-    assert(list->capacity > 0 && "Shouldn't try appending to unitialized list");\
+    assert(list->capacity > 0 && "Shouldn't try appending to uninitialized list");\
     if (list->size + 1 < list->capacity) {\
         list->items[list->size] = item;\
     } else {\
