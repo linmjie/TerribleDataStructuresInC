@@ -15,7 +15,7 @@ typedef struct {
 
 MAKE_LIST_DEF(double);
 MAKE_MUT_REF_LIST_DEF(Point);
-MAKE_LIST_DEF(Point);
+MAKE_REF_LIST_DEF(Point);
 
 void testDoubleList() {
     List_double list;
@@ -67,7 +67,7 @@ void testPointList() {
             .y = i * M_PI_2,
             .z = i * M_PI_4
         };
-        List_Point_Append(&list, point);
+        List_Point_Append(&list, &point);
     }
 
     for (size_t i = 0; i < list.size; i++) {
