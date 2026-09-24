@@ -1,3 +1,4 @@
+#include "simplemap.h"
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -8,14 +9,18 @@ size_t hash(const char *str) {
     return strlen(str) - 1;
 }
 
+MAKE_SIMPLE_MAP_DEF(char, int, hash)
+
 typedef struct {
     int *buckets;
     size_t bucketSize;
 } SimpleMap;
 
-int SimpleMap_Get(SimpleMap *map, const char *key) {
+int *SimpleMap_Get(SimpleMap *map, const char *key) {
     size_t bucketIdx = hash(key) % map->bucketSize;
-    return map->buckets[bucketIdx];
+    int *item = &map->buckets[bucketIdx];
+    int isEmpty = *item;
+    return isEmpty ? item : NULL;
 }
 
 void SimpleMap_Set(SimpleMap *map, const char *key, int val) {
@@ -24,7 +29,7 @@ void SimpleMap_Set(SimpleMap *map, const char *key, int val) {
 }
 
 void initSimpleMap(SimpleMap *map, size_t size) {
-    map->buckets = malloc(size * sizeof(int));
+    map->buckets = calloc(size, sizeof(int));
     if (map->buckets == NULL) {
         printf("No memory left :(\n");
         exit(1);
@@ -51,16 +56,16 @@ int main(int argc, char *argv[]) {
     SimpleMap_Set(&map, "abcdefghi", 24);
     SimpleMap_Set(&map, "abcdefghij", 6);
 
-    printf("val: %d\n", SimpleMap_Get(&map, "abcdefg"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcd"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcde"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcdefghi"));
-    printf("val: %d\n", SimpleMap_Get(&map, "a"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcdefgh"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcdefghij"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abc"));
-    printf("val: %d\n", SimpleMap_Get(&map, "ab"));
-    printf("val: %d\n", SimpleMap_Get(&map, "abcdef"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcdefg"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcd"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcde"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcdefghi"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "a"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcdefgh"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcdefghij"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abc"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "ab"));
+    printf("val: %d\n", *SimpleMap_Get(&map, "abcdef"));
 
     deleteSimpleMap(&map);
 }
