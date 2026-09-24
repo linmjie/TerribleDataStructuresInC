@@ -89,6 +89,13 @@ void testPointList() {
         printf("x=%f, y=%f, z=%f\n", item.x, item.y, item.z);
     }
 
+    printf("\nNow printing it all + the zero initialized bytes in the array\n");
+
+    for (size_t i = 0; i < list.capacity; i++) {
+        Point item = list.items[i];
+        printf("x=%f, y=%f, z=%f\n", item.x, item.y, item.z);
+    }
+
     deleteList_Point(&list);
 }
 

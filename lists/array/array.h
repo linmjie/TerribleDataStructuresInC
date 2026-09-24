@@ -21,6 +21,7 @@ void List_##T##_Append(List_##T *list, T item) {\
             printf("No memory left :(\n");\
             exit(1);\
         }\
+        memset(newItems + list->size, 0, (newCapacity - list->size) * sizeof(T));\
         list->items = newItems;\
         list->capacity = newCapacity;\
         list->items[list->size] = item;\
@@ -29,7 +30,7 @@ void List_##T##_Append(List_##T *list, T item) {\
 }\
 \
 void initList_##T##_WithCapacity(List_##T *list, size_t capacity) {\
-    list->items = malloc(capacity * sizeof(T));\
+    list->items = calloc(capacity, sizeof(T));\
     list->size = 0;\
     list->capacity = capacity;\
 }\
@@ -57,6 +58,7 @@ void List_##T##_Append(List_##T *list, const T *item) {\
             printf("No memory left :(\n");\
             exit(1);\
         }\
+        memset(newItems + list->size, 0, (newCapacity - list->size) * sizeof(T));\
         list->items = newItems;\
         list->capacity = newCapacity;\
         list->items[list->size] = *item;\
@@ -65,7 +67,7 @@ void List_##T##_Append(List_##T *list, const T *item) {\
 }\
 \
 void initList_##T##_WithCapacity(List_##T *list, size_t capacity) {\
-    list->items = malloc(capacity * sizeof(T));\
+    list->items = calloc(capacity, sizeof(T));\
     list->size = 0;\
     list->capacity = capacity;\
 }\
@@ -93,6 +95,7 @@ void List_p##T##_Append(List_p##T *list, T *item) {\
             printf("No memory left :(\n");\
             exit(1);\
         }\
+        memset(newItems + list->size, 0, (newCapacity - list->size) * sizeof(T*));\
         list->items = newItems;\
         list->capacity = newCapacity;\
         list->items[list->size] = item;\
@@ -101,7 +104,7 @@ void List_p##T##_Append(List_p##T *list, T *item) {\
 }\
 \
 void initList_p##T##_WithCapacity(List_p##T *list, size_t capacity) {\
-    list->items = malloc(capacity * sizeof(T*));\
+    list->items = calloc(capacity, sizeof(T*));\
     list->size = 0;\
     list->capacity = capacity;\
 }\
