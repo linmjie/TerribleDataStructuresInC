@@ -32,7 +32,8 @@ void initList_##T##_WithCapacity(List_##T *list, size_t capacity) {\
     list->capacity = capacity;\
 }\
 \
-void initList_##T(List_##T *list) { initList_##T##_WithCapacity(list, LIST_BASE_SIZE); }
+void initList_##T(List_##T *list) { initList_##T##_WithCapacity(list, LIST_BASE_SIZE); }\
+void deleteList_##T(List_##T *list) { free(list->items); }
 
 
 
@@ -67,7 +68,8 @@ void initList_##T##_WithCapacity(List_##T *list, size_t capacity) {\
     list->capacity = capacity;\
 }\
 \
-void initList_##T(List_##T *list) { initList_##T##_WithCapacity(list, LIST_BASE_SIZE); }
+void initList_##T(List_##T *list) { initList_##T##_WithCapacity(list, LIST_BASE_SIZE); }\
+void deleteList_##T(List_##T *list) { free(list->items); }
 
 
 
@@ -102,4 +104,5 @@ void initList_p##T##_WithCapacity(List_p##T *list, size_t capacity) {\
     list->capacity = capacity;\
 }\
 \
-void initList_p##T(List_p##T *list) { initList_p##T##_WithCapacity(list, LIST_BASE_SIZE); }
+void initList_p##T(List_p##T *list) { initList_p##T##_WithCapacity(list, LIST_BASE_SIZE); }\
+void deleteList_p##T(List_p##T *list) { free(list->items); }

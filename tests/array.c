@@ -29,7 +29,7 @@ void testDoubleList() {
         printf("%d * pi: %f\n", i, list.items[i]);
     }
 
-    free(list.items);
+    deleteList_double(&list);
 }
 
 void test_pPointList() {
@@ -55,7 +55,7 @@ void test_pPointList() {
         list.items[i] = NULL;
     }
 
-    free(list.items);
+    deleteList_pPoint(&list);
 }
 
 void testPointList() {
@@ -89,7 +89,7 @@ void testPointList() {
         printf("x=%f, y=%f, z=%f\n", item.x, item.y, item.z);
     }
 
-    free(list.items);
+    deleteList_Point(&list);
 }
 
 int main(int argc, char *argv[]) {
