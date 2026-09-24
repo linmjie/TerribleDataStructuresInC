@@ -1,3 +1,5 @@
+#pragma once
+
 #define MAKE_SIMPLE_MAP(K, V, HASH)\
 typedef struct {\
     V *buckets;\

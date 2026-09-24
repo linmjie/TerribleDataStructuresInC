@@ -1,3 +1,5 @@
+#pragma once
+
 #define LIST_BASE_SIZE 256
 #define LIST_RESIZE_MULTIPLIER 2
 
