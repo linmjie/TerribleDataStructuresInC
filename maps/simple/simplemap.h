@@ -8,7 +8,7 @@ typedef struct {\
     size_t bucketSize;\
 } SimpleMap_##K##_##V;\
 \
-V *SimpleMap_##K##_##V##_Get(SimpleMap_##K##_##V *map, const K *key) {\
+V *SimpleMap_##K##_##V##_Get(const SimpleMap_##K##_##V *map, const K *key) {\
     size_t bucketIdx = HASH(key) % map->bucketSize;\
     V *item = &map->buckets[bucketIdx];\
     int isEmpty = memcmp(&empty_##V##_t, item, sizeof(V));\
